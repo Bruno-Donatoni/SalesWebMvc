@@ -12,11 +12,15 @@ internal class Program
         builder.Services.AddDbContext<SalesWebMvcContext>(options =>
         options.UseMySql(connectionStr, ServerVersion.AutoDetect(connectionStr)));
 
+        builder.Services.AddScoped<SeedingService>();
+
         // Add services to the container.
         builder.Services.AddControllersWithViews();
 
         var app = builder.Build();
-
+        
+        
+        app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedingService>().Seed();
         // Configure the HTTP request pipeline.
         if (!app.Environment.IsDevelopment())
         {
