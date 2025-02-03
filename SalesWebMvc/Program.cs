@@ -17,6 +17,7 @@ internal class Program
         builder.Services.AddScoped<SeedingService>();
         builder.Services.AddScoped<SellerService>();
         builder.Services.AddScoped<DepartmentService>();
+        builder.Services.AddScoped<SalesRecordService>();
 
         var enUs = new CultureInfo("en-US");
         var localizationOptions = new RequestLocalizationOptions
