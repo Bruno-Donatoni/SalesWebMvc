@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Build.Evaluation;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
+using System.ComponentModel.DataAnnotations;
 using System.Transactions;
 
 namespace SalesWebMvc.Models
@@ -9,8 +10,17 @@ namespace SalesWebMvc.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+
+        [Display(Name = "Bith Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; }
+
+        [Display(Name = "Base Salary")]
+        [DisplayFormat(DataFormatString = "{0:F2}")]
         public double BaseSalary { get; set; }
         public ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>();
         public Department Department { get; set; }

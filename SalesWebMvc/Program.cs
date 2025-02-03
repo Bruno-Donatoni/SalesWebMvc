@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SalesWebMvc.Data;
 using SalesWebMvc.Services;
+using System.Globalization;
 
 internal class Program
 {
@@ -16,12 +18,21 @@ internal class Program
         builder.Services.AddScoped<SellerService>();
         builder.Services.AddScoped<DepartmentService>();
 
+        var enUs = new CultureInfo("en-US");
+        var localizationOptions = new RequestLocalizationOptions
+        {
+            DefaultRequestCulture = new RequestCulture(enUs),
+            SupportedCultures = new List<CultureInfo> { enUs },
+            SupportedUICultures = new List<CultureInfo> { enUs }
+        };
+        
+
         // Add services to the container.
         builder.Services.AddControllersWithViews();
 
         var app = builder.Build();
-        
-        
+
+        app.UseRequestLocalization(localizationOptions);
         app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedingService>().Seed();
         // Configure the HTTP request pipeline.
         if (!app.Environment.IsDevelopment())
