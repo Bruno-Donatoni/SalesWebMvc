@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SalesWebMvc.Data;
-
+using SalesWebMvc.Services;
 
 internal class Program
 {
@@ -13,6 +13,7 @@ internal class Program
         options.UseMySql(connectionStr, ServerVersion.AutoDetect(connectionStr)));
 
         builder.Services.AddScoped<SeedingService>();
+        builder.Services.AddScoped<SellerService>();
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
