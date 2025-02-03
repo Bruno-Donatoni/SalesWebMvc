@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using SalesWebMvc.Data;
 using SalesWebMvc.Models;
@@ -26,7 +27,7 @@ namespace SalesWebMvc.Services
 
         public Seller FindByID(int id) 
         {
-            return _context.Seller.FirstOrDefault(seller => seller.Id == id);
+            return _context.Seller.Include(obj => obj.Department).FirstOrDefault(seller => seller.Id == id);
         }
 
         public void RemoveSeller(int id) 
